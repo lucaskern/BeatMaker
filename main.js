@@ -1,42 +1,50 @@
 'use strict'
 const app = {
-  canvas: undefined
-  , ctx: undefined
-  , firstRun: true
-  , accurate: false
-  , playBool: true
-  , frames: 100
-  , framesLimit: 3
-  , xSpot: 0
-  , grid: []
-  , temp: []
-  , width: 20
-  , height: 20
+  canvas: undefined,
+  ctx: undefined,
+  firstRun: true,
+  accurate: false,
+  playBool: true,
+  frames: 100,
+  framesLimit: 10,
+  xSpot: 0,
+  grid: [],
+  temp: [],
+  width: 20,
+  height: 20
     //size of each cell in px
-    
-  , cellSize: 40
+
+    ,
+  cellSize: 40
     //max amount of times a cell can be consecutively alive before dying.
-    
-  , maxAge: 10
+
+    ,
+  maxAge: 10
     //how fast it changes color (higher : quicker)
-    
-  , colorRate: 6
+
+    ,
+  colorRate: 6
     //color values for bg
-    
-  , colorMode: "default"
+
+    ,
+  colorMode: "default"
     //color of cells
-    
-  , colorVal: null
+
+    ,
+  colorVal: null
     //live neighbor count
-    
-  , liveCount: 0
+
+    ,
+  liveCount: 0
     //create an audioCtx  
-    
-  , audCtx: undefined
+
+    ,
+  audCtx: undefined
     // create an oscillator
-    
-  , osc: undefined
-  , playNote: function (frequency, attack, decay, cmRatio, index) {
+
+    ,
+  osc: undefined,
+  playNote: function (frequency, attack, decay, cmRatio, index) {
     //let audCtx = new AudioContext();
     // create our primary oscillator
     const carrier = this.audCtx.createOscillator();
@@ -66,8 +74,8 @@ const app = {
     mod.stop(this.audCtx.currentTime + attack + decay);
     carrier.stop(this.audCtx.currentTime + attack + decay);
     //this.osc.close();
-  }
-  , init: function () {
+  },
+  init: function () {
       console.log("app.main.init() called");
       // initialize properties
       this.canvas = document.querySelector('canvas');
@@ -93,8 +101,9 @@ const app = {
       this.update();
     }
     //create grid using default or user modified values
-    
-  , gridSetup: function () {
+
+    ,
+  gridSetup: function () {
       this.grid = [];
       this.temp = [];
       //create canvas at appropriate size
@@ -118,35 +127,41 @@ const app = {
       }
     }
     //set up value controllers
-    
-  , getMousePos: function (canvas, evt) {
+
+    ,
+  getMousePos: function (canvas, evt) {
     var rect = this.canvas.getBoundingClientRect();
     return {
-      x: Math.floor((evt.clientX - rect.left) / this.cellSize)
-      , y: Math.floor((evt.clientY - rect.top) / this.cellSize)
+      x: Math.floor((evt.clientX - rect.left) / this.cellSize),
+      y: Math.floor((evt.clientY - rect.top) / this.cellSize)
     };
-  }
-  , clickEffect: function (xCoord, yCoord) {
-    let freqVal = parseFloat(document.getElementById("freq").value);
-    let attackVal = parseFloat(document.getElementById("attack").value);
-    let decayVal = parseFloat(document.getElementById("decay").value);
-    let cmVal = parseFloat(document.getElementById("cm").value);
-    let indexVal = parseFloat(document.getElementById("indexV").value);
-    
-    //this.playNote(freqVal, attackVal, decayVal, cmVal, indexVal);
-    
-    this.grid[yCoord][xCoord][0] = 1;
-    this.grid[yCoord][xCoord][1] = freqVal;
-    this.grid[yCoord][xCoord][2] = attackVal;
-    this.grid[yCoord][xCoord][3] = decayVal;
-    this.grid[yCoord][xCoord][4] = cmVal;
-    this.grid[yCoord][xCoord][5] = indexVal;
-      
-    console.log(indexVal);
-    
-    console.log(xCoord + "," + yCoord);
-  }
-  , controls: function () {
+  },
+  clickEffect: function (xCoord, yCoord) {
+
+    if (this.grid[yCoord][xCoord][0] == 0) {
+      let freqVal = parseFloat(document.getElementById("freq").value);
+      let attackVal = parseFloat(document.getElementById("attack").value);
+      let decayVal = parseFloat(document.getElementById("decay").value);
+      let cmVal = parseFloat(document.getElementById("cm").value);
+      let indexVal = parseFloat(document.getElementById("indexV").value);
+
+      //this.playNote(freqVal, attackVal, decayVal, cmVal, indexVal);
+
+      this.grid[yCoord][xCoord][0] = 1;
+      this.grid[yCoord][xCoord][1] = freqVal;
+      this.grid[yCoord][xCoord][2] = attackVal;
+      this.grid[yCoord][xCoord][3] = decayVal;
+      this.grid[yCoord][xCoord][4] = cmVal;
+      this.grid[yCoord][xCoord][5] = indexVal;
+    } else {
+      for (let i = 0; i < this.grid[yCoord][xCoord].length; i++){
+       this.grid[yCoord][xCoord][i] = 0;
+      }
+    }
+
+    //console.log(xCoord + "," + yCoord);
+  },
+  controls: function () {
     let thisRef = this;
     document.querySelector("canvas").addEventListener('click', function (evt) {
       var mousePos = thisRef.getMousePos(this.canvas, evt);
@@ -160,8 +175,8 @@ const app = {
     document.querySelector("#forward").onclick = function (e) {
       thisRef.forward();
     };
-  }
-  , runAutomata: function () {
+  },
+  runAutomata: function () {
     // loop through every cell
     // look at cell neighbors and count live ones
     // determine next cell state based on neighbor count
@@ -169,8 +184,7 @@ const app = {
     this.liveCount = 0;
     //loop through and count live neighbors
     for (let y = 1; y < this.height - 1; y++) {
-      for (let x = 1; x < this.width - 1; x++) {
-      }
+      for (let x = 1; x < this.width - 1; x++) {}
     }
     // after for loop swap grid and temp arrays
     let swap = this.grid;
@@ -179,55 +193,52 @@ const app = {
     if (this.accurate) {
       this.temp = swap;
     }
-  }
-  , draw: function (xSpot) {
+  },
+  draw: function (xSpot) {
     this.ctx.fillStyle = 'black';
     this.ctx.strokeStyle = "white";
-    this.ctx.fillRect(0,0, this.canvas.width, this.canvas.height);
-    
+    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
     this.ctx.fillStyle = 'red';
     for (let y = 0; y < this.height; y++) {
       for (let x = 0; x < this.width; x++) {
         if (this.grid[y][x][0] == 1) {
-        //fill and stroke rects
+          //fill and stroke rects
           this.ctx.fillRect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize)
-          
+
         }
       }
     }
-    
+
     for (let y = 0; y < this.height; y++) {
       for (let x = 0; x < this.width; x++) {
         this.ctx.strokeRect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
       }
     }
-    
-    this.ctx.fillStyle = "green";
-    for (let y = 0; y < this.height; y++) {
-        if (this.grid[y][xSpot][0] == 1) {
-          this.playNote(this.grid[y][xSpot][1], this.grid[y][xSpot][2], this.grid[y][xSpot][3], this.grid[y][xSpot][4], this.grid[y][xSpot][5]);
-          
-        }
-      
-        this.ctx.fillRect(xSpot * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize * this.height);
-    }
-    
-    
 
-  }
-  , play: function () {
+    
+    for (let y = 0; y < this.height; y++) {
+      if (this.grid[y][xSpot][0] == 1) {
+        this.playNote(this.grid[y][xSpot][1], this.grid[y][xSpot][2], this.grid[y][xSpot][3], this.grid[y][xSpot][4], this.grid[y][xSpot][5]);
+
+      }
+      this.ctx.fillStyle = "rgba(40, 240, 10, 0.4)";
+      this.ctx.fillRect(xSpot * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
+    }
+  },
+  play: function () {
     if (this.playBool) {
       this.playBool = false;
-    }
-    else {
+    } else {
       this.playBool = true;
     }
     console.log("play");
-  }
-  , forward: function () {
-    this.draw();
-  }
-  , update: function () {
+  },
+  forward: function () {
+    //this.draw();
+    this.xSpot++;
+  },
+  update: function () {
     this.animationID = requestAnimationFrame(this.update.bind(this));
     //this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     //only draw once threshold is passed
@@ -235,16 +246,17 @@ const app = {
       if (this.frames >= this.framesLimit) {
         this.draw(this.xSpot);
         this.frames = 0;
-        
-        if(this.xSpot < this.width - 1){
+
+        if (this.xSpot < this.width - 1) {
           this.xSpot = this.xSpot + 1;
         } else {
           this.xSpot = 0;
         }
       }
       this.frames++;
+    } else if (!this.playBool) {
+      this.draw(this.xSpot);
     }
-    else if (!this.playBool) {}
     //stop tracking fps
     //window.requestAnimationFrame(update);
   }
