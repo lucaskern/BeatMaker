@@ -192,6 +192,10 @@ const app = {
     document.querySelector("#forward").onclick = function (e) {
       thisRef.forward();
     };
+    document.querySelector("#speed").onchange = function (e) {
+      thisRef.framesLimit = e.target.value;
+      document.querySelector("#speedVal").value = e.target.value;
+    };
   },
   runAutomata: function () {
     // loop through every cell
@@ -217,8 +221,8 @@ const app = {
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.ctx.fillStyle = 'red';
-    for (let y = 0; y < this.height; y++) {
-      for (let x = 0; x < this.width; x++) {
+    for (let y = 1; y < this.height - 1; y++) {
+      for (let x = 1; x < this.width - 1; x++) {
         if (this.grid[y][x][0] == 1) {
           //fill and stroke rects
           this.ctx.fillRect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize)
@@ -227,8 +231,8 @@ const app = {
       }
     }
 
-    for (let y = 0; y < this.height; y++) {
-      for (let x = 0; x < this.width; x++) {
+    for (let y = 1; y < this.height - 1; y++) {
+      for (let x = 1; x < this.width - 1; x++) {
         this.ctx.strokeRect(x * this.cellSize, y * this.cellSize, this.cellSize, this.cellSize);
       }
     }
