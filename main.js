@@ -5,24 +5,17 @@ var firstRun = true;
 var accurate = false;
 var playBool = true;
 var frames = 100;
-var framesLimit = 10;
+var framesLimit = 2;
 var xSpot = 0;
 var grid = [];
 var temp = [];
-var width = 20;
+
+var width = 30;
 var height = 8;
+
 //size of each cell in px
-var cellSize = 40;
-//max amount of times a cell can be consecutively alive before dying.
-var maxAge = 10;
-//how fast it changes color (higher  = quicker)
-var colorRate = 6;
-//color values for bg
-var colorMode = "default";
-//color of cells
-var colorVal = null;
-//live neighbor count
-var liveCount = 0;
+var cellSize = 35;
+
 //create an audioCtx  
 var audCtx = undefined;
 // create an oscillator
@@ -30,34 +23,44 @@ var osc = undefined;
 
 var playNote = function (frequency, attack, decay, cmRatio, index) {
     //let audCtx = new AudioContext();
+    
     // create our primary oscillator
     const carrier = audCtx.createOscillator();
     carrier.type = 'sine';
     carrier.frequency.value = frequency;
+    
     // create an oscillator for modulation
     const mod = audCtx.createOscillator();
     mod.type = 'sine';
+    
     // The FM synthesis formula states that our modulators 
     // frequency = frequency * carrier-to-modulation ratio.
     mod.frequency.value = frequency * cmRatio;
     const modGainNode = audCtx.createGain();
+    
     // The FM synthesis formula states that our modulators 
     // amplitude = frequency * index
     modGainNode.gain.value = frequency * index;
     mod.connect(modGainNode);
+    
     // plug the gain node into the frequency of
     // our oscillator
     modGainNode.connect(carrier.frequency);
     const envelope = audCtx.createGain();
+    //Ramp up over attack time, fade out over decay time
     envelope.gain.linearRampToValueAtTime(1, audCtx.currentTime + attack);
     envelope.gain.linearRampToValueAtTime(0, audCtx.currentTime + attack + decay);
+    
+    //Connect nodes and start note. Play for attack + decay
     carrier.connect(envelope);
     envelope.connect(audCtx.destination);
     mod.start(audCtx.currentTime);
     carrier.start(audCtx.currentTime);
     mod.stop(audCtx.currentTime + attack + decay);
     carrier.stop(audCtx.currentTime + attack + decay);
-    //osc.close();
+    
+    //End this note to mitigate distortion with many notes
+    osc.stop(audCtx.currentTime + attack + decay);
 }
 
 var init = function () {
@@ -157,29 +160,33 @@ var controls = function () {
     document.querySelector("#forward").onclick = function (e) {
         forward();
     };
+    document.querySelector("#rand").onclick = function (e) {
+        randomize();
+    };
     document.querySelector("#speed").onchange = function (e) {
         framesLimit = e.target.value;
         document.querySelector("#speedVal").value = e.target.value;
     };
 }
-var runAutomata = function () {
-    // loop through every cell
-    // look at cell neighbors and count live ones
-    // determine next cell state based on neighbor count
-    // set temp [y][x] -> new cell state
-    liveCount = 0;
-    //loop through and count live neighbors
-    for (let y = 1; y < height - 1; y++) {
-        for (let x = 1; x < width - 1; x++) {}
-    }
-    // after for loop swap grid and temp arrays
-    let swap = grid;
-    grid = temp;
-    //swap if conway rules is selected by user
-    if (accurate) {
-        temp = swap;
-    }
+
+var randomize = function() {
+    var randomF = randomRange(100, 1000);
+    var randomA = randomRange(0, .5);
+    var randomD = randomRange(0, .5);
+    var randomC = randomRange(0, 10);
+    var randomI = randomRange(0, 10);
+    
+    document.getElementById("freq").value = randomF;
+    document.getElementById("attack").value = randomA;
+    document.getElementById("decay").value = randomD;
+    document.getElementById("cm").value = randomC;
+    document.getElementById("indexV").value = randomI;
 }
+
+var randomRange = function getRandomArbitrary(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
 var draw = function (xSpot) {
     ctx.fillStyle = 'white';
     ctx.strokeStyle = "black";
