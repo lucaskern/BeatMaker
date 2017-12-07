@@ -1,0 +1,32 @@
+Default
+Frequency 680
+Attack .1
+Decay .2
+CmRatio 2
+Index 1.45
+
+smooth bass
+Frequency 105
+Attack .332
+Decay .165
+CmRatio 2.77
+Index 0.299
+
+sharp twang
+Frequency 931
+Attack 0.026
+Decay .086
+CmRatio 0.142
+Index 7.857
+
+Default
+Frequency 680
+Attack .1
+Decay .2
+CmRatio 2
+Index 1.45
+
+mario
+
+fe==fe== ==fe== ==fc==fe
+

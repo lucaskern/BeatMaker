@@ -24,6 +24,9 @@ var osc = undefined;
 var playNote = function (frequency, attack, decay, cmRatio, index) {
     //let audCtx = new AudioContext();
     
+    //lowers gain of overall sound to minimize distortion
+    const compressor = audCtx.createDynamicsCompressor();
+    
     // create our primary oscillator
     const carrier = audCtx.createOscillator();
     carrier.type = 'sine';
@@ -53,7 +56,10 @@ var playNote = function (frequency, attack, decay, cmRatio, index) {
     
     //Connect nodes and start note. Play for attack + decay
     carrier.connect(envelope);
-    envelope.connect(audCtx.destination);
+    envelope.connect(compressor);
+    
+    compressor.connect(audCtx.destination);
+     
     mod.start(audCtx.currentTime);
     carrier.start(audCtx.currentTime);
     mod.stop(audCtx.currentTime + attack + decay);
