@@ -21,7 +21,7 @@ var audCtx = undefined;
 // create an oscillator
 var osc = undefined;
 
-var playNote = function (frequency, attack, decay, cmRatio, index) {
+var playNote = function (frequency, attack, decay, cmRatio, index, oscType) {
     //let audCtx = new AudioContext();
     
     //lowers gain of overall sound to minimize distortion
@@ -29,12 +29,12 @@ var playNote = function (frequency, attack, decay, cmRatio, index) {
     
     // create our primary oscillator
     const carrier = audCtx.createOscillator();
-    carrier.type = 'sine';
+    carrier.type = oscType;
     carrier.frequency.value = frequency;
     
     // create an oscillator for modulation
     const mod = audCtx.createOscillator();
-    mod.type = 'sine';
+    mod.type = oscType;
     
     // The FM synthesis formula states that our modulators 
     // frequency = frequency * carrier-to-modulation ratio.
@@ -135,6 +135,7 @@ var clickEffect = function (xCoord, yCoord) {
         let decayVal = parseFloat(document.getElementById("decay").value);
         let cmVal = parseFloat(document.getElementById("cm").value);
         let indexVal = parseFloat(document.getElementById("indexV").value);
+        let oscType = document.getElementById("osc").value;
         
         //playNote(freqVal, attackVal, decayVal, cmVal, indexVal);
         
@@ -145,6 +146,8 @@ var clickEffect = function (xCoord, yCoord) {
         grid[yCoord][xCoord][3] = decayVal;
         grid[yCoord][xCoord][4] = cmVal;
         grid[yCoord][xCoord][5] = indexVal;
+        grid[yCoord][xCoord][6] = oscType;
+        
     } else {
         for (let i = 0; i < grid[yCoord][xCoord].length; i++) {
             grid[yCoord][xCoord][i] = 0;
