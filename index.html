@@ -38,6 +38,11 @@
             margin-bottom: 10px;
         }
         
+        #notes, #notes td{
+            color: white;
+            border: 1px solid white;
+        }
+        
         label {
             width: 14%;
             color: white;
@@ -147,26 +152,21 @@
                 </td>
                 <td>
                     <label>Frequency:
-                <input class="rounded2" type="text" id="freq" value="680"/>
-            </label>
+                        <input class="rounded2" type="text" id="freq" value="680" /> </label>
                     <label>Attack:
-                <input class="rounded2" type="text" id="attack" value=".1"/>
-            </label>
+                        <input class="rounded2" type="text" id="attack" value=".1" /> </label>
                     <label>Decay:
-                <input class="rounded2" type="text" id="decay" value=".2"/>
-            </label>
+                        <input class="rounded2" type="text" id="decay" value=".2" /> </label>
                 </td>
                 <td>
                     <label>CmRatio:
-                <input class="rounded2" type="text" id="cm" value="2"/>
-            </label>
+                        <input class="rounded2" type="text" id="cm" value="2" /> </label>
                     <label>Index:
-                <input class="rounded2" type="text" id="indexV" value="1.45"/>
-            </label>
+                        <input class="rounded2" type="text" id="indexV" value="1.45" /> </label>
                     <label> Play Speed:
-                <input id="speed" name="speed" type="range" value="10" min="1" max="100">
-                <output name="speedVal" id="speedVal">2</output>
-            </label>
+                        <input id="speed" name="speed" type="range" value="10" min="1" max="100">
+                        <output name="speedVal" id="speedVal">2</output>
+                    </label>
                 </td>
                 <td>
                     <label> Instrument Type
@@ -178,18 +178,261 @@
                     </label>
                     <label> Oscillator Type
                         <select id="osc">
-                            <option value="sin"> Sine </option>
-                            <option value="tri"> Triangle </option>
-                            <option value="saw"> Sawtooth </option>
+                            <option value="sine"> Sine </option>
+                            <option value="triangle"> Triangle </option>
+                            <option value="sawtooth"> Sawtooth </option>
                             <option value="square"> Square </option>
                         </select>
                     </label>
                 </td>
-                
+            </tr>
+        </table>
+        <table id="notes">
+            <th>Note</th>
+            <th>Frequency (Hz)</th>
+            <th>Wavelength (cm)</th>
+            <tr>
+                <td align=center>C<sub>3</sub></td>
+                <td align=center> 130.81</td>
+                <td align=center> 263.74</td>
+            </tr>
+            <tr>
+                <td align=center>&nbsp;C<sup>#</sup><sub>3</sub>/D<sup>b</sup><sub>3</sub>&nbsp;</td>
+                <td align=center> 138.59</td>
+                <td align=center> 248.93</td>
+            </tr>
+            <tr>
+                <td align=center>D<sub>3</sub></td>
+                <td align=center> 146.83</td>
+                <td align=center> 234.96</td>
+            </tr>
+            <tr>
+                <td align=center>&nbsp;D<sup>#</sup><sub>3</sub>/E<sup>b</sup><sub>3</sub>&nbsp;</td>
+                <td align=center> 155.56</td>
+                <td align=center> 221.77</td>
+            </tr>
+            <tr>
+                <td align=center>E<sub>3</sub></td>
+                <td align=center> 164.81</td>
+                <td align=center> 209.33</td>
+            </tr>
+            <tr>
+                <td align=center>F<sub>3</sub></td>
+                <td align=center> 174.61</td>
+                <td align=center> 197.58</td>
+            </tr>
+            <tr>
+                <td align=center>&nbsp;F<sup>#</sup><sub>3</sub>/G<sup>b</sup><sub>3</sub>&nbsp;</td>
+                <td align=center> 185.00</td>
+                <td align=center> 186.49</td>
+            </tr>
+            <tr>
+                <td align=center>G<sub>3</sub></td>
+                <td align=center> 196.00</td>
+                <td align=center> 176.02</td>
+            </tr>
+            <tr>
+                <td align=center>&nbsp;G<sup>#</sup><sub>3</sub>/A<sup>b</sup><sub>3</sub>&nbsp;</td>
+                <td align=center> 207.65</td>
+                <td align=center> 166.14</td>
+            </tr>
+            <tr>
+                <td align=center>A<sub>3</sub></td>
+                <td align=center> 220.00</td>
+                <td align=center> 156.82</td>
+            </tr>
+            <tr>
+                <td align=center>&nbsp;A<sup>#</sup><sub>3</sub>/B<sup>b</sup><sub>3</sub>&nbsp;</td>
+                <td align=center> 233.08</td>
+                <td align=center> 148.02</td>
+            </tr>
+            <tr>
+                <td align=center>B<sub>3</sub></td>
+                <td align=center> 246.94</td>
+                <td align=center> 139.71</td>
+            </tr>
+            <tr>
+                <td align=center>C<sub>4</sub></td>
+                <td align=center> 261.63</td>
+                <td align=center> 131.87</td>
+            </tr>
+            <tr>
+                <td align=center>&nbsp;C<sup>#</sup><sub>4</sub>/D<sup>b</sup><sub>4</sub>&nbsp;</td>
+                <td align=center> 277.18</td>
+                <td align=center> 124.47</td>
+            </tr>
+            <tr>
+                <td align=center>D<sub>4</sub></td>
+                <td align=center> 293.66</td>
+                <td align=center> 117.48</td>
+            </tr>
+            <tr>
+                <td align=center>&nbsp;D<sup>#</sup><sub>4</sub>/E<sup>b</sup><sub>4</sub>&nbsp;</td>
+                <td align=center> 311.13</td>
+                <td align=center> 110.89</td>
+            </tr>
+            <tr>
+                <td align=center>E<sub>4</sub></td>
+                <td align=center> 329.63</td>
+                <td align=center> 104.66</td>
+            </tr>
+            <tr>
+                <td align=center>F<sub>4</sub></td>
+                <td align=center> 349.23</td>
+                <td align=center> 98.79</td>
+            </tr>
+            <tr>
+                <td align=center>&nbsp;F<sup>#</sup><sub>4</sub>/G<sup>b</sup><sub>4</sub>&nbsp;</td>
+                <td align=center> 369.99</td>
+                <td align=center> 93.24</td>
+            </tr>
+            <tr>
+                <td align=center>G<sub>4</sub></td>
+                <td align=center> 392.00</td>
+                <td align=center> 88.01</td>
+            </tr>
+            <tr>
+                <td align=center>&nbsp;G<sup>#</sup><sub>4</sub>/A<sup>b</sup><sub>4</sub>&nbsp;</td>
+                <td align=center> 415.30</td>
+                <td align=center> 83.07</td>
+            </tr>
+            <tr>
+                <td align=center>A<sub>4</sub></td>
+                <td align=center> 440.00</td>
+                <td align=center> 78.41</td>
+            </tr>
+            <tr>
+                <td align=center>&nbsp;A<sup>#</sup><sub>4</sub>/B<sup>b</sup><sub>4</sub>&nbsp;</td>
+                <td align=center> 466.16</td>
+                <td align=center> 74.01</td>
+            </tr>
+            <tr>
+                <td align=center>B<sub>4</sub></td>
+                <td align=center> 493.88</td>
+                <td align=center> 69.85</td>
+            </tr>
+            <tr>
+                <td align=center>C<sub>5</sub></td>
+                <td align=center> 523.25</td>
+                <td align=center> 65.93</td>
+            </tr>
+            <tr>
+                <td align=center>&nbsp;C<sup>#</sup><sub>5</sub>/D<sup>b</sup><sub>5</sub>&nbsp;</td>
+                <td align=center> 554.37</td>
+                <td align=center> 62.23</td>
+            </tr>
+            <tr>
+                <td align=center>D<sub>5</sub></td>
+                <td align=center> 587.33</td>
+                <td align=center> 58.74</td>
+            </tr>
+            <tr>
+                <td align=center>&nbsp;D<sup>#</sup><sub>5</sub>/E<sup>b</sup><sub>5</sub>&nbsp;</td>
+                <td align=center> 622.25</td>
+                <td align=center> 55.44</td>
+            </tr>
+            <tr>
+                <td align=center>E<sub>5</sub></td>
+                <td align=center> 659.25</td>
+                <td align=center> 52.33</td>
+            </tr>
+            <tr>
+                <td align=center>F<sub>5</sub></td>
+                <td align=center> 698.46</td>
+                <td align=center> 49.39</td>
+            </tr>
+            <tr>
+                <td align=center>&nbsp;F<sup>#</sup><sub>5</sub>/G<sup>b</sup><sub>5</sub>&nbsp;</td>
+                <td align=center> 739.99</td>
+                <td align=center> 46.62</td>
+            </tr>
+            <tr>
+                <td align=center>G<sub>5</sub></td>
+                <td align=center> 783.99</td>
+                <td align=center> 44.01</td>
+            </tr>
+            <tr>
+                <td align=center>&nbsp;G<sup>#</sup><sub>5</sub>/A<sup>b</sup><sub>5</sub>&nbsp;</td>
+                <td align=center> 830.61</td>
+                <td align=center> 41.54</td>
+            </tr>
+            <tr>
+                <td align=center>A<sub>5</sub></td>
+                <td align=center> 880.00</td>
+                <td align=center> 39.20</td>
+            </tr>
+            <tr>
+                <td align=center>&nbsp;A<sup>#</sup><sub>5</sub>/B<sup>b</sup><sub>5</sub>&nbsp;</td>
+                <td align=center> 932.33</td>
+                <td align=center> 37.00</td>
+            </tr>
+            <tr>
+                <td align=center>B<sub>5</sub></td>
+                <td align=center> 987.77</td>
+                <td align=center> 34.93</td>
+            </tr>
+            <tr>
+                <td align=center>C<sub>6</sub></td>
+                <td align=center> 1046.50</td>
+                <td align=center> 32.97</td>
+            </tr>
+            <tr>
+                <td align=center>&nbsp;C<sup>#</sup><sub>6</sub>/D<sup>b</sup><sub>6</sub>&nbsp;</td>
+                <td align=center> 1108.73</td>
+                <td align=center> 31.12</td>
+            </tr>
+            <tr>
+                <td align=center>D<sub>6</sub></td>
+                <td align=center> 1174.66</td>
+                <td align=center> 29.37</td>
+            </tr>
+            <tr>
+                <td align=center>&nbsp;D<sup>#</sup><sub>6</sub>/E<sup>b</sup><sub>6</sub>&nbsp;</td>
+                <td align=center> 1244.51</td>
+                <td align=center> 27.72</td>
+            </tr>
+            <tr>
+                <td align=center>E<sub>6</sub></td>
+                <td align=center> 1318.51</td>
+                <td align=center> 26.17</td>
+            </tr>
+            <tr>
+                <td align=center>F<sub>6</sub></td>
+                <td align=center> 1396.91</td>
+                <td align=center> 24.70</td>
+            </tr>
+            <tr>
+                <td align=center>&nbsp;F<sup>#</sup><sub>6</sub>/G<sup>b</sup><sub>6</sub>&nbsp;</td>
+                <td align=center> 1479.98</td>
+                <td align=center> 23.31</td>
+            </tr>
+            <tr>
+                <td align=center>G<sub>6</sub></td>
+                <td align=center> 1567.98</td>
+                <td align=center> 22.00</td>
+            </tr>
+            <tr>
+                <td align=center>&nbsp;G<sup>#</sup><sub>6</sub>/A<sup>b</sup><sub>6</sub>&nbsp;</td>
+                <td align=center> 1661.22</td>
+                <td align=center> 20.77</td>
+            </tr>
+            <tr>
+                <td align=center>A<sub>6</sub></td>
+                <td align=center> 1760.00</td>
+                <td align=center> 19.60</td>
+            </tr>
+            <tr>
+                <td align=center>&nbsp;A<sup>#</sup><sub>6</sub>/B<sup>b</sup><sub>6</sub>&nbsp;</td>
+                <td align=center> 1864.66</td>
+                <td align=center> 18.50</td>
+            </tr>
+            <tr>
+                <td align=center>B<sub>6</sub></td>
+                <td align=center> 1975.53</td>
+                <td align=center> 17.46</td>
             </tr>
         </table>
     </div>
-
     <!--  <script src="bundle.js" type="text/javascript"></script>-->
     <script src='main.js'></script>
     <!--  <script src='loader.js'></script>-->
