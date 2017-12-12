@@ -38,9 +38,18 @@
             margin-bottom: 10px;
         }
         
-        #notes, #notes td{
-            color: white;
-            border: 1px solid white;
+        #notes,
+        #notes td {
+            color: black;
+        }
+        
+        #notes td {
+            border: 1px solid black;
+        }
+        
+        #tabs {
+            width: 50%;
+            margin: 0 auto;
         }
         
         label {
@@ -137,7 +146,9 @@
             text-align: right;
         }
     </style>
-    <!--  <script src="main.js"></script>-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 
 <body>
@@ -187,6 +198,86 @@
                 </td>
             </tr>
         </table>
+        <div id="tabs">
+            <ul>
+                <li><a href="#tabs-1">1</a></li>
+                <li><a href="#tabs-2">2</a></li>
+                <li><a href="#tabs-3">3</a></li>
+            </ul>
+            <div id="tabs-1">
+                <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+            </div>
+            <div id="tabs-2">
+                <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
+            </div>
+            <div id="tabs-3">
+                <table id="notes">
+                    <th>Note</th>
+                    <th>Frequency (Hz)</th>
+                    <th>Wavelength (cm)</th>
+                    <tr>
+                        <td align=center>C<sub>3</sub></td>
+                        <td align=center> 130.81</td>
+                        <td align=center> 263.74</td>
+                    </tr>
+                    <tr>
+                        <td align=center>&nbsp;C<sup>#</sup><sub>3</sub>/D<sup>b</sup><sub>3</sub>&nbsp;</td>
+                        <td align=center> 138.59</td>
+                        <td align=center> 248.93</td>
+                    </tr>
+                    <tr>
+                        <td align=center>D<sub>3</sub></td>
+                        <td align=center> 146.83</td>
+                        <td align=center> 234.96</td>
+                    </tr>
+                    <tr>
+                        <td align=center>&nbsp;D<sup>#</sup><sub>3</sub>/E<sup>b</sup><sub>3</sub>&nbsp;</td>
+                        <td align=center> 155.56</td>
+                        <td align=center> 221.77</td>
+                    </tr>
+                    <tr>
+                        <td align=center>E<sub>3</sub></td>
+                        <td align=center> 164.81</td>
+                        <td align=center> 209.33</td>
+                    </tr>
+                    <tr>
+                        <td align=center>F<sub>3</sub></td>
+                        <td align=center> 174.61</td>
+                        <td align=center> 197.58</td>
+                    </tr>
+                    <tr>
+                        <td align=center>&nbsp;F<sup>#</sup><sub>3</sub>/G<sup>b</sup><sub>3</sub>&nbsp;</td>
+                        <td align=center> 185.00</td>
+                        <td align=center> 186.49</td>
+                    </tr>
+                    <tr>
+                        <td align=center>G<sub>3</sub></td>
+                        <td align=center> 196.00</td>
+                        <td align=center> 176.02</td>
+                    </tr>
+                    <tr>
+                        <td align=center>&nbsp;G<sup>#</sup><sub>3</sub>/A<sup>b</sup><sub>3</sub>&nbsp;</td>
+                        <td align=center> 207.65</td>
+                        <td align=center> 166.14</td>
+                    </tr>
+                    <tr>
+                        <td align=center>A<sub>3</sub></td>
+                        <td align=center> 220.00</td>
+                        <td align=center> 156.82</td>
+                    </tr>
+                    <tr>
+                        <td align=center>&nbsp;A<sup>#</sup><sub>3</sub>/B<sup>b</sup><sub>3</sub>&nbsp;</td>
+                        <td align=center> 233.08</td>
+                        <td align=center> 148.02</td>
+                    </tr>
+                    <tr>
+                        <td align=center>B<sub>3</sub></td>
+                        <td align=center> 246.94</td>
+                        <td align=center> 139.71</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
         <table id="notes">
             <th>Note</th>
             <th>Frequency (Hz)</th>

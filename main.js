@@ -57,6 +57,9 @@ var playNote = function (frequency, attack, decay, cmRatio, index, oscType) {
 }
 var init = function () {
         console.log("app.main.init() called");
+    
+        $("#tabs").tabs();
+    
         // initialize properties
         canvas = document.querySelector('canvas');
         canvas.width = width * cellSize;
@@ -185,7 +188,7 @@ var draw = function (xSpot) {
             if (grid[y][x][0] == 1) {
                 if (grid[y][x][1] < 150) {
                     //fill and stroke rects
-                    ctx.fillStyle = "red";
+                    ctx.fillStyle = "black";
                 }
                 else if (grid[y][x][1] < 400) { //fill and stroke rects
                     ctx.fillStyle = "green";
