@@ -103,7 +103,7 @@ var gridSetup = function () {
             grid[y] = [[]];
             temp[y] = [[]];
             for (var x = 0; x < width; x++) {
-                //fill with random values 
+                //fill with empty
                 grid[y][x] = [0];
                 temp[y][x] = [0];
                 //create border
@@ -130,7 +130,6 @@ var clickEffect = function (xCoord, yCoord) {
         var indexVal = parseFloat(document.getElementById("indexV").value);
         var oscType = document.getElementById("osc").value;
         //playNote(freqVal, attackVal, decayVal, cmVal, indexVal);
-        console.log(oscType);
         //Create array of sound vals at loc
         grid[yCoord][xCoord][0] = 1;
         grid[yCoord][xCoord][1] = freqVal;
@@ -156,7 +155,7 @@ var controls = function () {
         var message = 'Mouse position: ' + mousePos.x + ',' + mousePos.y;
         //console.log(message);
         clickEffect(mousePos.x, mousePos.y);
-        console.log("canvas click");
+        //console.log("canvas click");
     }, false);
     
     //html control set up
@@ -173,6 +172,12 @@ var controls = function () {
         framesLimit = e.target.value;
         document.querySelector("#speedVal").value = e.target.value;
     };
+    document.querySelector("#getSong").onclick = function (e) {
+        getSong();
+    };
+    document.querySelector("#setSong").onclick = function (e) {
+        setSong();
+    };
     
     //Note table functionality
     var notes = document.getElementsByClassName("noteFreq");
@@ -183,6 +188,23 @@ var controls = function () {
             freqEl.value = event.target.innerText;
         }, false);
     }
+}
+
+var getSong = function() {
+    //console.log(JSON.stringify(grid));
+    console.log(grid);
+    
+    var songCode = JSON.stringify(grid);
+    var songCodeBox = document.getElementById("trans");
+    
+    songCodeBox.value = songCode;
+}
+
+var setSong = function() {
+    var songCode = document.getElementById("trans").value;
+    console.log(grid);
+    grid = JSON.parse(songCode);
+    console.log(grid);
 }
 
 //Fill textboxes with correct ranges
