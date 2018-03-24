@@ -6,7 +6,6 @@ Github repo: https://github.com/lucaskern/BeatMaker
 
 'use strict'
 
-
 //init vars
 var canvas = undefined;
 var ctx = undefined;
@@ -69,56 +68,56 @@ var playNote = function (frequency, attack, decay, cmRatio, index, oscType) {
     //osc.stop(audCtx.currentTime + attack + decay);
 }
 var init = function () {
-        console.log("app.main.init() called");
-        $("#tabs").tabs();
-        // initialize properties
-        canvas = document.querySelector('canvas');
-        canvas.width = width * cellSize;
-        canvas.height = height * cellSize;
-        ctx = canvas.getContext('2d');
-        //set up controls
-        controls();
-        console.log("init ran");
-        audCtx = new AudioContext();
+    console.log("app.main.init() called");
+    $("#tabs").tabs();
+    // initialize properties
+    canvas = document.querySelector('canvas');
+    canvas.width = width * cellSize;
+    canvas.height = height * cellSize;
+    ctx = canvas.getContext('2d');
+    //set up controls
+    controls();
+    console.log("init ran");
+    audCtx = new AudioContext();
 
-        //set up grid on first init only
-        if (firstRun) {
-            gridSetup();
-            firstRun = false;
-        }
-    
-        update();
+    //set up grid on first init only
+    if (firstRun) {
+        gridSetup();
+        firstRun = false;
     }
+
+    update();
+}
 //create grid using default or user modified values
 var gridSetup = function () {
-        grid = [];
-        temp = [];
-        //create canvas at appropriate size
-        canvas.width = width * cellSize;
-        canvas.height = height * cellSize;
-        ctx.fillStyle = "white";
-        ctx.fillRect(0, 0, 3000, 3000);
-        //instantiate spaces in arrays
-        for (var y = 0; y < height; y++) {
-            grid[y] = [[]];
-            temp[y] = [[]];
-            for (var x = 0; x < width; x++) {
-                //fill with empty
-                grid[y][x] = [0];
-                temp[y][x] = [0];
-                //create border
-                if (x == 0 || y == 0 || x == width - 1 || y == height - 1) {
-                    grid[y][x] = 0;
-                }
+    grid = [];
+    temp = [];
+    //create canvas at appropriate size
+    canvas.width = width * cellSize;
+    canvas.height = height * cellSize;
+    ctx.fillStyle = "white";
+    ctx.fillRect(0, 0, 3000, 3000);
+    //instantiate spaces in arrays
+    for (var y = 0; y < height; y++) {
+        grid[y] = [[]];
+        temp[y] = [[]];
+        for (var x = 0; x < width; x++) {
+            //fill with empty
+            grid[y][x] = [0];
+            temp[y][x] = [0];
+            //create border
+            if (x == 0 || y == 0 || x == width - 1 || y == height - 1) {
+                grid[y][x] = 0;
             }
         }
     }
+}
 //set up value controllers
 var getMousePos = function (canvas, evt) {
     var rect = canvas.getBoundingClientRect();
     return {
-        x: Math.floor((evt.clientX - rect.left) / cellSize)
-        , y: Math.floor((evt.clientY - rect.top) / cellSize)
+        x: Math.floor((evt.clientX - rect.left) / cellSize),
+        y: Math.floor((evt.clientY - rect.top) / cellSize)
     };
 }
 var clickEffect = function (xCoord, yCoord) {
@@ -138,8 +137,7 @@ var clickEffect = function (xCoord, yCoord) {
         grid[yCoord][xCoord][4] = cmVal;
         grid[yCoord][xCoord][5] = indexVal;
         grid[yCoord][xCoord][6] = oscType;
-    }
-    else {
+    } else {
         //delete note
         for (var i = 0; i < grid[yCoord][xCoord].length; i++) {
             grid[yCoord][xCoord][i] = 0;
@@ -148,7 +146,7 @@ var clickEffect = function (xCoord, yCoord) {
     //console.log(xCoord + "," + yCoord);
 }
 var controls = function () {
-    
+
     //add a note on click
     document.querySelector("canvas").addEventListener('click', function (evt) {
         var mousePos = getMousePos(canvas, evt);
@@ -157,7 +155,7 @@ var controls = function () {
         clickEffect(mousePos.x, mousePos.y);
         //console.log("canvas click");
     }, false);
-    
+
     //html control set up
     document.querySelector("#play").onclick = function (e) {
         play();
@@ -178,7 +176,11 @@ var controls = function () {
     document.querySelector("#setSong").onclick = function (e) {
         setSong();
     };
-    
+
+    $("#play").keypress(function () {
+        console.log("Handler for .keypress() called.");
+    });
+
     //Note table functionality
     var notes = document.getElementsByClassName("noteFreq");
     for (var i = 0; i < notes.length; i++) {
@@ -190,17 +192,17 @@ var controls = function () {
     }
 }
 
-var getSong = function() {
+var getSong = function () {
     //console.log(JSON.stringify(grid));
     console.log(grid);
-    
+
     var songCode = JSON.stringify(grid);
     var songCodeBox = document.getElementById("trans");
-    
+
     songCodeBox.value = songCode;
 }
 
-var setSong = function() {
+var setSong = function () {
     var songCode = document.getElementById("trans").value;
     console.log(grid);
     grid = JSON.parse(songCode);
@@ -230,81 +232,75 @@ var draw = function (xSpot) {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     for (var y = 1; y < height - 1; y++) {
         for (var x = 1; x < width - 1; x++) {
-            
+
             //change saturation of note based on octave
             if (grid[y][x][0] == 1) {
                 if (grid[y][x][1] < 31) {
                     ctx.fillStyle = "rgb(35,0,0)";
-                }
-                else if (grid[y][x][1] < 66) {
+                } else if (grid[y][x][1] < 66) {
                     ctx.fillStyle = "rgb(70,0,0)";
-                }
-                else if (grid[y][x][1] < 130) {
+                } else if (grid[y][x][1] < 130) {
                     ctx.fillStyle = "rgb(105,0,0)";
-                }
-                else if (grid[y][x][1] < 261) {
+                } else if (grid[y][x][1] < 261) {
                     ctx.fillStyle = "rgb(140,0,0)";
-                }
-                else if (grid[y][x][1] < 523) {
+                } else if (grid[y][x][1] < 523) {
                     ctx.fillStyle = "rgb(175,0,0)";
-                }
-                else if (grid[y][x][1] < 1046) {
+                } else if (grid[y][x][1] < 1046) {
                     ctx.fillStyle = "rgb(210,0,0)";
-                }
-                else {
+                } else {
                     ctx.fillStyle = "rgb(245,0,0)";
                 }
-                
+
                 //change shape of note based on osc type
                 switch (grid[y][x][6]) {
-                case "sine":
-                    ctx.beginPath();
-                    ctx.arc(x * cellSize + cellSize / 2, y * cellSize + cellSize / 2, cellSize / 2.5, 0, 2 * Math.PI);
-                    ctx.closePath();
-                    ctx.fill();
-                    break;
-                case "triangle":
-                    ctx.beginPath();
-                    ctx.moveTo(x * cellSize, y * cellSize + cellSize);
-                    ctx.lineTo(x * cellSize + cellSize / 2, y * cellSize);
-                    ctx.lineTo(x * cellSize + cellSize, y * cellSize + cellSize);
-                    ctx.closePath();
-                    ctx.fill();
-                    break;
-                case "sawtooth":
-                    ctx.beginPath();
-                    ctx.moveTo(x * cellSize, y * cellSize + cellSize);
-                    ctx.lineTo(x * cellSize + cellSize / 4, y * cellSize);
-                    ctx.lineTo(x * cellSize + cellSize / 2, y * cellSize + cellSize / 1.5);
-                    ctx.lineTo(x * cellSize + cellSize / 1.38, y * cellSize);
-                    ctx.lineTo(x * cellSize + cellSize, y * cellSize + cellSize);
-                    ctx.closePath();
-                    ctx.fill();
-                    break;
-                case "square":
-                    ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
-                    break;
+                    case "sine":
+                        ctx.beginPath();
+                        ctx.arc(x * cellSize + cellSize / 2, y * cellSize + cellSize / 2, cellSize / 2.5, 0, 2 * Math.PI);
+                        ctx.closePath();
+                        ctx.fill();
+                        break;
+                    case "triangle":
+                        ctx.beginPath();
+                        ctx.moveTo(x * cellSize, y * cellSize + cellSize);
+                        ctx.lineTo(x * cellSize + cellSize / 2, y * cellSize);
+                        ctx.lineTo(x * cellSize + cellSize, y * cellSize + cellSize);
+                        ctx.closePath();
+                        ctx.fill();
+                        break;
+                    case "sawtooth":
+                        ctx.beginPath();
+                        ctx.moveTo(x * cellSize, y * cellSize + cellSize);
+                        ctx.lineTo(x * cellSize + cellSize / 4, y * cellSize);
+                        ctx.lineTo(x * cellSize + cellSize / 2, y * cellSize + cellSize / 1.5);
+                        ctx.lineTo(x * cellSize + cellSize / 1.38, y * cellSize);
+                        ctx.lineTo(x * cellSize + cellSize, y * cellSize + cellSize);
+                        ctx.closePath();
+                        ctx.fill();
+                        break;
+                    case "square":
+                        ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
+                        break;
                 }
             }
         }
     }
-    
+
     //draw grid
     for (var y = 1; y < height - 1; y++) {
         for (var x = 1; x < width - 1; x++) {
             ctx.strokeRect(x * cellSize, y * cellSize, cellSize, cellSize);
         }
     }
-    
+
     //play notes in the column
     for (var y = 0; y < height; y++) {
-        
+
         if (playBool) {
-           if (grid[y][xSpot][0] == 1) {
+            if (grid[y][xSpot][0] == 1) {
                 playNote(grid[y][xSpot][1], grid[y][xSpot][2], grid[y][xSpot][3], grid[y][xSpot][4], grid[y][xSpot][5], grid[y][xSpot][6]);
-            } 
+            }
         }
-        
+
         ctx.fillStyle = "rgba(40, 240, 60, 0.6)";
         ctx.fillRect(xSpot * cellSize, y * cellSize, cellSize, cellSize);
     }
@@ -312,8 +308,7 @@ var draw = function (xSpot) {
 var play = function () {
     if (playBool) {
         playBool = false;
-    }
-    else {
+    } else {
         playBool = true;
     }
     //console.log("play");
@@ -332,14 +327,12 @@ var update = function () {
             frames = 0;
             if (xSpot < width - 1) {
                 xSpot = xSpot + 1;
-            }
-            else {
+            } else {
                 xSpot = 0;
             }
         }
         frames++;
-    }
-    else if (!playBool) {
+    } else if (!playBool) {
         draw(xSpot);
     }
     //stop tracking fps

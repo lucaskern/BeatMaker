@@ -141,13 +141,13 @@
             //float: left;
             display: inline-block;
             //clear: left;
-            width: 150px;
+            width: 80px;
             text-align: right;
         }
         
         label {
             display: block;
-            width: 270px;
+/*            width: 270px;*/
             text-align: center;
             padding-bottom: 10px;
         }
@@ -183,14 +183,112 @@
             height: 34px;
             width: 128px;
         }
+        
+        .control-box {
+            background-color: #5c3a8e;
+            padding: 10px;
+        }
+        
+        .control-container {
+            margin-top: 20px;
+        }
+        
     </style>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 
 <body>
     <canvas></canvas>
+    
+    <div class="container control-container">
+        <div class="row">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-4">
+				</div>
+				<div class="col-md-4">
+                    <button id="play" class="btn" type="button"><span> &#9655; / &#9208; </span></button>
+				</div>
+				<div class="col-md-4">
+                    <button id="forward" class="btn" type="button"><span> Forward </span></button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row control-box">
+		<div class="col-md-4">
+			<div class="row">
+				<div class="col-md-6">
+                    <button id="rand" class="btn" type="button"><span> Randomize </span></button>
+				</div>
+				<div class="col-md-6">
+                    <label>Frequency: <input class="rounded2" type="text" id="freq" value="680" /> </label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+                    <label>Attack: <input class="rounded2" type="text" id="attack" value=".1" /> </label>
+				</div>
+				<div class="col-md-6">
+                    <label>Decay: <input class="rounded2" type="text" id="decay" value=".2" /> </label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+                    <label>CmRatio: <input class="rounded2" type="text" id="cm" value="2" /> </label>
+				</div>
+				<div class="col-md-6">
+                    <label>Index: <input class="rounded2" type="text" id="indexV" value="1.45" /> </label>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="row">
+				<div class="col-md-12 text-center">
+                    <label> Oscillator Type
+                        <div class="styled-select slate">
+                        <select id="osc">
+                            <option value="sine"> Sine </option>
+                            <option value="triangle"> Triangle </option>
+                            <option value="sawtooth"> Sawtooth </option>
+                            <option value="square"> Square </option>
+                        </select>
+                        </div>
+                    </label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 text-center">
+                    <label> Play Speed:
+                        <input id="speed" name="speed" type="range" value="10" min="1" max="100">
+                        <output name="speedVal" id="speedVal">10</output>
+                    </label>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="row">
+				<div class="col-md-12">
+                    <label>
+                        <button id="getSong" class="btn" type="button"><span>Get Song</span></button>
+                        <button id="setSong" class="btn" type="button"><span>Set Song</span></button>
+                        <input type="text" id="trans" name="song transcription" placeholder="Generate a code of your song!">
+                    </label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+    
     <div class="controls">
         <table>
             <tr>
